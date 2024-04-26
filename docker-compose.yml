@@ -1,7 +1,7 @@
 version: '3'
 services:
   postgres:
-    image: postgres:9.4
+    image: "postgres"
     container_name: postgres
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
@@ -9,6 +9,10 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}      
     ports:
       - "5432:5432"
+    networks:
+      - loja_network
+    volumes:
+      - ./migration/docker-database-initial.sql:/docker-entrypoint-initdb.d/docker-database-initial.sql
   
   pgadmin-compose:
     image: dpage/pgadmin4
@@ -20,4 +24,9 @@ services:
       - "54321:80"
     depends_on:
       - postgres
+    networks:
+      - loja_network
       
+networks:
+    loja_network:
+        driver: bridge
