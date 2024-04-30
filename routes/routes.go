@@ -6,9 +6,11 @@ import (
 	"github.com/cassioglay/go-loja/controllers"
 )
 
-func CarretaRotas() {
+func CarregaRotas() {
 
 	index := controllers.Index
+	new := controllers.New
 
 	http.HandleFunc("/", index)
+	http.HandleFunc("/new", new)
 }
